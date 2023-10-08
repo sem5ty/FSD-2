@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+    <style>
+        body {
+            font-family: Comic Sans, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: green;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        form {
+            background: #ffffff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="email"], input[type="password"] ,select{
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        let globvar = 0;
+const citiesbystate = {
+  Maharashtra: [
+    "Mumbai",
+    "Pune",
+    "Nagpur",
+    "Nashik",
+    "Solapur",
+    "Amravati",
+    "Aurangabad",
+    "Sangli",
+    "Satara",
+    "Kolhapur",
+  ],
+  Karnataka: [
+    "Banglore",
+    "Mysore",
+    "Hubli",
+    "Belagaum",
+    "Mangalore",
+    "Gulbarga",
+    "Shimogga",
+    "Bellary",
+    "Tumkur",
+    "Davanagere",
+  ],
+  Gujarat: [
+    "Ahmedabad",
+    "Surat",
+    "Vadodara",
+    "Rajkot",
+    "Bhavnagar",
+    "Jamnagar",
+    "Junagadh",
+    "Gandhinagar",
+    "Ananad",
+    "Bharuch",
+  ],
+};
+function statechange() {
+  var city = document.getElementById("city");
+  city.innerHTML = "";
+  var selectedState = document.getElementById("state").value;
+  var states = citiesbystate[selectedState];
+  for (let i = 0; i < states.length; i++) {
+    var option = document.createElement("option");
+    option.text = states[i];
+    city.add(option);
+  }
+}
+let password = document.getElementById("password");
+
+function validate1() {
+  let cnt = 0;
+
+  // lowercase letters
+  let lowerCaseLetters = /[a-z]/g;
+  if (password.value.match(lowerCaseLetters)) {
+    cnt++;
+  }
+
+  // capital letters
+  let upperCaseLetters = /[A-Z]/g;
+  if (password.value.match(upperCaseLetters)) {
+    cnt++;
+  }
+
+  // numbers
+  let numbers = /[0-9]/g;
+  if (password.value.match(numbers)) {
+    cnt++;
+  }
+
+  // length
+  if (password.value.length >= 8) {
+    cnt++;
+  }
+
+  // Provide incremental feedback
+  if (cnt === 0) {
+    // No conditions met
+    password.classList.remove("valid", "error");
+  } else if (cnt < 4) {
+    // Some conditions met
+    password.classList.remove("valid");
+    password.classList.add("error");
+    console.log("INcorrect!!");
+  } else {
+    // All conditions met
+    password.classList.remove("error");
+    password.classList.add("valid");
+    console.log("correct password!!");
+    globvar++;
+  }
+}
+let mobile = document.getElementById("mobile");
+function validate2() {
+  let cnt = 0;
+  if (mobile.value.length === 10) {
+    cnt++;
+  }
+  let numbers = /^\d{10}$/;
+  if (mobile.value.match(numbers)) {
+    cnt++;
+  }
+  if (cnt === 0) {
+    mobile.classList.remove("valid", "error");
+  } else if (cnt < 2) {
+    mobile.classList.remove("valid");
+    mobile.classList.add("error");
+    console.log("INcorrect mobile!!");
+  } else {
+    mobile.classList.remove("error");
+    mobile.classList.add("valid");
+    console.log("correct mobile!!");
+    globvar++;
+  }
+}
+let email = document.getElementById("email");
+const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+function validate3() {
+  if (email.value.match(emailPattern)) {
+    email.classList.remove("error");
+    email.classList.add("valid");
+    console.log("correct email!!");
+    globvar++;
+  } else {
+    email.classList.remove("valid");
+    email.classList.add("error");
+    console.log("Invalid email address.");
+  }
+}
+function validate4() {
+  let pincode = document.getElementById("PinCode");
+  if (pincode.value.length !== 6) {
+    pincode.classList.remove("valid");
+    pincode.classList.add("error");
+    alert("Please enter a valid Pin Code");
+  } else {
+    email.classList.remove("error");
+    email.classList.add("valid");
+    console.log("Correct pincode!!!");
+    globvar++;
+  }
+}
+function validate5() {
+  p1 = document.getElementById("password");
+  p2 = document.getElementById("cpassword");
+  if (p1.value === p2.value) {
+    globvar++;
+    p2.classList.add("valid");
+  } else {
+    p2.classList.remove("valid");
+    p2.classList.add("error");
+    alert("Passwords do not match");
+  }
+}
+function sub() {
+  alert("Submitted succesfully!");
+}
+form1 = document.getElementById("form");
+submitbtn = document.getElementById("subb");
+function valform() {
+  if (globvar === 5) {
+    submitbtn.disabled = false;
+  } else {
+    submitbtn.disabled = true;
+  }
+}
+
+    </script>
+</head>
+<body>
+<?php
+$submit = false;
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "fsd";
+
+$con = new mysqli($server, $username, $password, $database);
+
+if ($con->connect_error) {
+    die("Connection failed due to " . $con->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $school = $_POST['school'];
+        $address = $_POST['address'];
+        $pword = $_POST['password'];
+        $email = $_POST['email'];
+        $mobile = $_POST['mobile'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $Country = $_POST['Country'];
+        $PinCode = $_POST['PinCode'];
+
+        $sql = "INSERT INTO `student`(`Name`, `School`, `Address`, `Email`, `Mobile`, `Password`, `State`, `City`, `Country`, `PinCode`)
+        VALUES ('$name','$school','$address','$email','$mobile','$pword','$state','$city','$Country','$PinCode')";
+
+        if ($con->query($sql) === true) {
+            $submit = true;
+            echo "<script>alert('Record inserted successfully!!');</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $con->error;
+        }
+    }
+
+    if (isset($_POST['update'])) {
+        $updateEmail = $_POST['update_email'];
+        $newCity = $_POST['new_city'];
+
+        $updateSql = "UPDATE `student` SET `City`='$newCity' WHERE `Stud_id`='$updateEmail'";
+
+        if ($con->query($updateSql) === TRUE) {
+            echo "<script>alert('Record updated successfully!!');</script>";
+        } else {
+            echo "Error updating record: " . $con->error;
+        }
+    }
+
+    if (isset($_POST['delete'])) {
+        $deleteEmail = $_POST['delete_email'];
+
+        $deleteSql = "DELETE FROM `student` WHERE `Stud_id`='$deleteEmail'";
+
+        if ($con->query($deleteSql) === TRUE) {
+            echo "<script>alert('Record deleted successfully!!');</script>";
+        } else {
+            echo "Error deleting record: " . $con->error;
+        }
+    }
+}
+
+?>
+
+<div class="container">
+    <!-- Insert Form -->
+    <h2>Insert Student Record</h2>
+    <form id="form" method="post" action="" onsubmit="valform()">
+        Name: <input type="text" id="name" name="name" required><br>
+        School: <input type="text" id="school" name="school" required><br>
+        Address: <input type="text" id="address" name="address" required><br>
+        Password: <input type="password" id="password" name="password" required onkeyup="validate1()"><br>
+        Confirm Password: <input type="password" id="cpassword" name="cpassword" required onchange="validate5()"><br>
+        Email: <input type="email" id="email" name="email" required onkeyup="validate3()"><br>
+        Mobile: <input type="text" id="mobile" name="mobile" required onkeyup="validate2()"><br>
+        State: <select id="state" name="state" onchange="statechange()" required>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Gujarat">Gujarat</option>
+        </select><br>
+        City: <select id="city" name="city" required></select><br>
+        Country: <input type="text" id="Country" name="Country" required><br>
+        PinCode: <input type="text" id="PinCode" name="PinCode" required onkeyup="validate4()"><br>
+        <input type="submit" name="submit" id="subb" value="Submit">
+    </form>
+
+    <h2>Update Student Record</h2>
+    <form method="post" action="">
+        ID: <input type="text" name="update_email" required><br>
+        New City: <input type="text" name="new_city" required><br>
+        <input type="submit" name="update" value="Update">
+    </form>
+
+    <h2>
